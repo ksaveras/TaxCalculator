@@ -1,0 +1,10 @@
+includes:
+	- vendor/phpstan/phpstan/conf/config.levelmax.neon
+	- vendor/phpstan/phpstan-symfony/extension.neon
+parameters:
+    ignoreErrors:
+        - '#Call to an undefined static method Money\\Money::[A-Z]+\(\).#'
+        - '#Method App\\Tests\\[a-zA-Z0-9\\_]+::[a-zA-Z0-9_]+\(\) should return App\\[a-zA-Z0-9\\_]+&PHPUnit_Framework_MockObject_MockObject but returns PHPUnit\\Framework\\MockObject\\MockObject#'
+        - '#Parameter .+ of class App\\[a-zA-Z0-9\\_]+ constructor expects App\\[a-zA-Z0-9\\_]+, PHPUnit\\Framework\\MockObject\\MockObject given.#'
+    symfony:
+        container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml

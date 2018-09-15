@@ -1,0 +1,143 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    currency.exchange_rates:
+        EUR:
+            USD: 1.1497
+            JPY: 129.53
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Allows optimizing the container by removing unused services; this also means
+                            # fetching services directly from the container via $container->get() won't work.
+                            # The best practice is to be explicit about your dependencies anyway.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Exception,Migrations,Model,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+#    App\Controller\:
+#        resource: '../src/Controller'
+#        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+
+    Money\Currencies\ISOCurrencies:
+        public: true
+
+    App\Service\TaxCalculator:
+        public: true
+        calls:
+            - [add, ['@app.taxes.cash_in']]
+            - [add, ['@app.taxes.cash_out_legal']]
+            - [add, ['@app.taxes.cash_out_natural']]
+
+    Money\Exchange\ReversedCurrenciesExchange:
+        arguments:
+            - '@Money\Exchange\FixedExchange'
+
+    Money\Exchange\FixedExchange:
+        arguments:
+            - '%currency.exchange_rates%'
+
+    Money\Converter:
+        arguments:
+            - '@Money\Currencies\ISOCurrencies'
+            - '@Money\Exchange\ReversedCurrenciesExchange'
+
+    Money\Parser\DecimalMoneyParser:
+        arguments: ['@Money\Currencies\ISOCurrencies']
+        public: true
+
+    Money\Formatter\DecimalMoneyFormatter:
+        arguments: ['@Money\Currencies\ISOCurrencies']
+        public: true
+
+# money
+    app.money.currency.eur:
+        class: Money\Currency
+        arguments: ['EUR']
+        shared: false
+
+    app.money.1000eur:
+        class: Money\Money
+        arguments: [100000, '@app.money.currency.eur']
+        shared: false
+
+# limits
+    app.limit.1000eur3times:
+        class: App\TaxTrigger\OperationLimit
+        arguments: [3, '@app.money.1000eur']
+        shared: false
+
+# tax services
+    app.taxes.fixed_5eur_tax:
+        class: App\TaxType\FixedAmountTaxType
+        arguments: ['500', 'EUR', '@Money\Converter']
+        public: false
+
+    app.taxes.percent_003_tax:
+        class: App\TaxType\PercentTaxType
+        arguments: [0.03]
+        public: false
+
+    app.taxes.003_max_5eur:
+        class: App\TaxType\MinimumTaxType
+        public: false
+        calls:
+            - [add, ['@app.taxes.percent_003_tax']]
+            - [add, ['@app.taxes.fixed_5eur_tax']]
+
+    app.taxes.percent_03_tax:
+        class: App\TaxType\PercentTaxType
+        arguments: [0.3]
+        public: false
+
+    app.taxes.fixed_05eur_tax:
+        class: App\TaxType\FixedAmountTaxType
+        arguments: ['50', 'EUR', '@Money\Converter']
+        public: false
+
+    app.taxes.03_min_05eur:
+        class: App\TaxType\MaximumTaxType
+        public: false
+        calls:
+            - [add, ['@app.taxes.percent_03_tax']]
+            - [add, ['@app.taxes.fixed_05eur_tax']]
+
+    app.taxes.weekly_operation_limit:
+        class: App\TaxTrigger\WeeklyOperationTrigger
+        arguments: ['@app.limit.1000eur3times', '@Money\Converter']
+        public: false
+
+    app.taxes.trigger_03_tax:
+        class: App\TaxType\TriggeredTaxType
+        arguments: ['@app.taxes.weekly_operation_limit', '@app.taxes.percent_03_tax']
+        public: false
+
+    app.taxes.cash_in:
+        class: App\TaxType\CashInType
+        arguments: ['@app.taxes.003_max_5eur']
+        public: false
+
+    app.taxes.cash_out_legal:
+        class: App\TaxType\CashOutLegalType
+        arguments: ['@app.taxes.03_min_05eur']
+        public: false
+
+    app.taxes.cash_out_natural:
+        class: App\TaxType\CashOutNaturalType
+        arguments: ['@app.taxes.trigger_03_tax']
+        public: false
