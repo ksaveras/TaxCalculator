@@ -7,7 +7,7 @@ use Money\Converter;
 use Money\Money;
 
 /**
- * Class WeeklyOperationTrigger
+ * Class WeeklyOperationTrigger.
  */
 class WeeklyOperationTrigger implements TaxTriggerInterface
 {
@@ -39,9 +39,9 @@ class WeeklyOperationTrigger implements TaxTriggerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function logOperation(Money $money, OperationContext $context)
+    public function logOperation(Money $money, OperationContext $context): ?Money
     {
         $limit = $this->getLimit($context);
 
@@ -70,7 +70,7 @@ class WeeklyOperationTrigger implements TaxTriggerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function limitReached(OperationContext $context): bool
     {
@@ -108,7 +108,7 @@ class WeeklyOperationTrigger implements TaxTriggerInterface
      *
      * @return string
      */
-    private function buildKey(OperationContext $context)
+    private function buildKey(OperationContext $context): string
     {
         $monday = new \DateTimeImmutable(sprintf('Monday this week %s', $context->getDate()->format('Y-m-d')));
 

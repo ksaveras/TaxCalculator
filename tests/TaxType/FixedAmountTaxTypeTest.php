@@ -11,6 +11,9 @@ use Money\Exchange\ReversedCurrenciesExchange;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class FixedAmountTaxTypeTest.
+ */
 class FixedAmountTaxTypeTest extends TestCase
 {
     /**
@@ -23,7 +26,7 @@ class FixedAmountTaxTypeTest extends TestCase
      *
      * @internal     param Money $fixedTax
      */
-    public function testTaxStrategy($amount, $currency, $money, $expected)
+    public function testTaxStrategy($amount, $currency, $money, $expected): void
     {
         $taxCalculator = new FixedAmountTaxType($amount, $currency, $this->getConverter());
         $taxMoney = $taxCalculator->calculateTax($money, $this->getOperationMock());
@@ -34,7 +37,7 @@ class FixedAmountTaxTypeTest extends TestCase
     /**
      * @return array
      */
-    public function getValidationParams()
+    public function getValidationParams(): array
     {
         $params = [];
 
@@ -79,7 +82,7 @@ class FixedAmountTaxTypeTest extends TestCase
     /**
      * @return Converter
      */
-    private function getConverter()
+    private function getConverter(): Converter
     {
         $exchange = new ReversedCurrenciesExchange(
             new FixedExchange(

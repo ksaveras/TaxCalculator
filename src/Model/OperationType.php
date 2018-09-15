@@ -5,7 +5,7 @@ namespace App\Model;
 use MabeEnum\Enum;
 
 /**
- * Class OperationType
+ * Class OperationType.
  *
  * @method static OperationType CASH_OUT()
  * @method static OperationType CASH_IN()

@@ -7,7 +7,7 @@ use App\TaxTrigger\TaxTriggerInterface;
 use Money\Money;
 
 /**
- * Class TriggeredTaxType
+ * Class TriggeredTaxType.
  */
 class TriggeredTaxType implements TaxTypeInterface
 {
@@ -25,7 +25,7 @@ class TriggeredTaxType implements TaxTypeInterface
      * TriggeredTaxStrategy constructor.
      *
      * @param TaxTriggerInterface $taxTrigger
-     * @param TaxTypeInterface     $taxType
+     * @param TaxTypeInterface    $taxType
      */
     public function __construct(TaxTriggerInterface $taxTrigger, TaxTypeInterface $taxType)
     {

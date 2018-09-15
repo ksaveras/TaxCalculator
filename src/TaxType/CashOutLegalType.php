@@ -9,7 +9,7 @@ use App\Model\UserType;
 use Money\Money;
 
 /**
- * Class CashOutLegalType
+ * Class CashOutLegalType.
  */
 class CashOutLegalType implements TaxTypeInterface, SupportedTypeInterface
 {
@@ -29,17 +29,17 @@ class CashOutLegalType implements TaxTypeInterface, SupportedTypeInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(OperationContext $context): bool
     {
-        return ($context->getOperationType()->is(OperationType::CASH_OUT) &&
+        return $context->getOperationType()->is(OperationType::CASH_OUT) &&
                 $context->getUser()->getType() instanceof UserType &&
-                $context->getUser()->getType()->is(UserType::LEGAL()));
+                $context->getUser()->getType()->is(UserType::LEGAL());
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateTax(Money $money, OperationContext $context): Money
     {

@@ -44,7 +44,7 @@ class OperationLimit
      */
     public function reduceOperations(): OperationLimit
     {
-        $this->operations--;
+        --$this->operations;
 
         return $this;
     }
@@ -74,6 +74,6 @@ class OperationLimit
      */
     public function limitReached(): bool
     {
-        return ($this->money->isNegative() || $this->operations < 0);
+        return $this->money->isNegative() || $this->operations < 0;
     }
 }

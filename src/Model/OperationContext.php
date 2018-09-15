@@ -3,7 +3,7 @@
 namespace App\Model;
 
 /**
- * Class OperationContext
+ * Class OperationContext.
  *
  * @codeCoverageIgnore
  */
@@ -39,7 +39,7 @@ class OperationContext implements OperationContextInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUser(): User
     {
@@ -59,7 +59,7 @@ class OperationContext implements OperationContextInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDate(): \DateTime
     {
@@ -79,7 +79,7 @@ class OperationContext implements OperationContextInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOperationType(): OperationType
     {

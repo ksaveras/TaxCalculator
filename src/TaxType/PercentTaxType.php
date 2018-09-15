@@ -6,7 +6,7 @@ use App\Model\OperationContext;
 use Money\Money;
 
 /**
- * Class PercentTaxType
+ * Class PercentTaxType.
  */
 class PercentTaxType implements TaxTypeInterface
 {
@@ -30,7 +30,7 @@ class PercentTaxType implements TaxTypeInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateTax(Money $money, OperationContext $context): Money
     {

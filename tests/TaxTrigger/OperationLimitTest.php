@@ -6,9 +6,12 @@ use App\TaxTrigger\OperationLimit;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class OperationLimitTest.
+ */
 class OperationLimitTest extends TestCase
 {
-    public function testInitialOperationLimit()
+    public function testInitialOperationLimit(): void
     {
         $limit = new OperationLimit(3, Money::EUR(10000));
         $this->assertFalse($limit->limitReached());
@@ -19,7 +22,7 @@ class OperationLimitTest extends TestCase
         $this->assertEquals(0, $limit->getOperations());
     }
 
-    public function testReduceOperations()
+    public function testReduceOperations(): void
     {
         $limit = new OperationLimit(1, Money::EUR(10000));
         $this->assertFalse($limit->limitReached());
@@ -34,7 +37,7 @@ class OperationLimitTest extends TestCase
         $this->assertEquals(-1, $limit->getOperations());
     }
 
-    public function testReduceMoney()
+    public function testReduceMoney(): void
     {
         $limit = new OperationLimit(1, Money::EUR(10000));
         $this->assertFalse($limit->limitReached());
@@ -53,7 +56,7 @@ class OperationLimitTest extends TestCase
         $this->assertEquals(Money::EUR(-5000), $limit->getMoney());
     }
 
-    public function testReduceBoth()
+    public function testReduceBoth(): void
     {
         $limit = new OperationLimit(0, Money::EUR(100));
         $this->assertFalse($limit->limitReached());

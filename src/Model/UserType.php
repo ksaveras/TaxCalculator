@@ -5,7 +5,7 @@ namespace App\Model;
 use MabeEnum\Enum;
 
 /**
- * Class UserType
+ * Class UserType.
  *
  * @method static UserType NATURAL()
  * @method static UserType LEGAL()

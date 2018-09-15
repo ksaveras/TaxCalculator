@@ -8,7 +8,7 @@ use App\Model\OperationType;
 use Money\Money;
 
 /**
- * Class CashInType
+ * Class CashInType.
  */
 class CashInType implements TaxTypeInterface, SupportedTypeInterface
 {
@@ -28,7 +28,7 @@ class CashInType implements TaxTypeInterface, SupportedTypeInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(OperationContext $context): bool
     {
@@ -36,7 +36,7 @@ class CashInType implements TaxTypeInterface, SupportedTypeInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateTax(Money $money, OperationContext $context): Money
     {

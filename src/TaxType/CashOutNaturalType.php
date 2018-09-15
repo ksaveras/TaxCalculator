@@ -9,7 +9,7 @@ use App\Model\UserType;
 use Money\Money;
 
 /**
- * Class CashOutNaturalType
+ * Class CashOutNaturalType.
  */
 class CashOutNaturalType implements TaxTypeInterface, SupportedTypeInterface
 {
@@ -29,17 +29,17 @@ class CashOutNaturalType implements TaxTypeInterface, SupportedTypeInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(OperationContext $context): bool
     {
-        return ($context->getOperationType()->is(OperationType::CASH_OUT) &&
+        return $context->getOperationType()->is(OperationType::CASH_OUT) &&
                 $context->getUser()->getType() instanceof UserType &&
-                $context->getUser()->getType()->is(UserType::NATURAL()));
+                $context->getUser()->getType()->is(UserType::NATURAL());
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateTax(Money $money, OperationContext $context): Money
     {

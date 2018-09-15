@@ -5,7 +5,7 @@ namespace App\TaxType;
 use App\Model\OperationContext;
 
 /**
- * Interface SupportedStrategyInterface
+ * Interface SupportedStrategyInterface.
  */
 interface SupportedTypeInterface
 {

@@ -18,7 +18,7 @@ class TaxCalculator implements TaxCalculatorInterface
     private $taxTypes = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function add(TaxTypeInterface $taxType): TaxCalculatorInterface
     {

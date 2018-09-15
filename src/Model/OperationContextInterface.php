@@ -3,7 +3,7 @@
 namespace App\Model;
 
 /**
- * Class OperationContextInterface
+ * Class OperationContextInterface.
  *
  * @codeCoverageIgnore
  */

@@ -21,9 +21,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ProcessOperationCommand extends ContainerAwareCommand
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('app:money:process')
@@ -32,9 +32,9 @@ class ProcessOperationCommand extends ContainerAwareCommand
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         if (!file_exists($input->getArgument('file'))) {
             throw new InvalidArgumentException('Input file not found');
@@ -46,7 +46,7 @@ class ProcessOperationCommand extends ContainerAwareCommand
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

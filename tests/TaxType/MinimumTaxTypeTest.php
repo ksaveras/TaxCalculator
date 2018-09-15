@@ -8,19 +8,22 @@ use App\TaxType\PercentTaxType;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class MinimumTaxTypeTest.
+ */
 class MinimumTaxTypeTest extends TestCase
 {
     /**
      * @expectedException \App\Exception\MissingTaxException
      */
-    public function testEmptyTaxCalculator()
+    public function testEmptyTaxCalculator(): void
     {
         $taxCalculator = new MinimumTaxType();
 
         $taxCalculator->calculateTax(Money::EUR(10000), $this->getOperationMock());
     }
 
-    public function testTaxCalculator()
+    public function testTaxCalculator(): void
     {
         $taxCalculator = new MinimumTaxType();
         $taxCalculator->add(new PercentTaxType(0.06));
@@ -36,8 +39,6 @@ class MinimumTaxTypeTest extends TestCase
      */
     private function getOperationMock()
     {
-        $mock = $this->createMock(OperationContext::class);
-
-        return $mock;
+        return $this->createMock(OperationContext::class);
     }
 }

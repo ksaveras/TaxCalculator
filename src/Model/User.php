@@ -3,7 +3,7 @@
 namespace App\Model;
 
 /**
- * Class User
+ * Class User.
  *
  * @codeCoverageIgnore
  */

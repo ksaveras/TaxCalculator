@@ -14,9 +14,12 @@ use Money\Exchange\ReversedCurrenciesExchange;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class WeeklyOperationTriggerTest.
+ */
 class WeeklyOperationTriggerTest extends TestCase
 {
-    public function testWeeklyTrigger()
+    public function testWeeklyTrigger(): void
     {
         $context = new OperationContext(
             (new User())->setId('1'),
@@ -44,7 +47,7 @@ class WeeklyOperationTriggerTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function testWeeklyTriggerOtherCurrency()
+    public function testWeeklyTriggerOtherCurrency(): void
     {
         $context = new OperationContext(
             (new User())->setId('1'),
@@ -75,7 +78,7 @@ class WeeklyOperationTriggerTest extends TestCase
     /**
      * @return Converter
      */
-    private function getConverter()
+    private function getConverter(): Converter
     {
         $exchange = new ReversedCurrenciesExchange(
             new FixedExchange(

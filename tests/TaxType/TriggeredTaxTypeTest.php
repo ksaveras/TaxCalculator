@@ -9,6 +9,9 @@ use App\TaxType\TriggeredTaxType;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class TriggeredTaxTypeTest.
+ */
 class TriggeredTaxTypeTest extends TestCase
 {
     /**
@@ -19,7 +22,7 @@ class TriggeredTaxTypeTest extends TestCase
      * @param Money      $money
      * @param Money      $expected
      */
-    public function testTaxCalculator($overLimit, $limitReached, $money, $expected)
+    public function testTaxCalculator($overLimit, $limitReached, $money, $expected): void
     {
         $type = new TriggeredTaxType(
             $this->getTriggerMock($overLimit, $limitReached),
@@ -34,7 +37,7 @@ class TriggeredTaxTypeTest extends TestCase
     /**
      * @return array
      */
-    public function getCalculationParams()
+    public function getCalculationParams(): array
     {
         $params = [];
 
@@ -72,7 +75,6 @@ class TriggeredTaxTypeTest extends TestCase
             Money::EUR(1000),
             Money::EUR(1),
         ];
-
 
         return $params;
     }

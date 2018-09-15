@@ -6,7 +6,7 @@ use App\Model\OperationContext;
 use Money\Money;
 
 /**
- * Interface TaxTypeInterface
+ * Interface TaxTypeInterface.
  */
 interface TaxTypeInterface
 {

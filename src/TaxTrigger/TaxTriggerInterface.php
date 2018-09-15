@@ -10,14 +10,13 @@ use Money\Money;
  */
 interface TaxTriggerInterface
 {
-
     /**
      * @param Money            $money
      * @param OperationContext $context
      *
      * @return Money|null
      */
-    public function logOperation(Money $money, OperationContext $context);
+    public function logOperation(Money $money, OperationContext $context): ?Money;
 
     /**
      * @param OperationContext $context

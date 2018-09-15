@@ -7,7 +7,7 @@ use App\Model\OperationContext;
 use Money\Money;
 
 /**
- * Class MaximumTaxType
+ * Class MaximumTaxType.
  */
 class MaximumTaxType implements TaxTypeInterface
 {
@@ -19,30 +19,30 @@ class MaximumTaxType implements TaxTypeInterface
     /**
      * @param TaxTypeInterface $strategy
      */
-    public function add(TaxTypeInterface $strategy)
+    public function add(TaxTypeInterface $strategy): void
     {
         $this->taxTypes[] = $strategy;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateTax(Money $money, OperationContext $context): Money
     {
-        if (count($this->taxTypes) === 0) {
+        if (0 === \count($this->taxTypes)) {
             throw new MissingTaxException('At least one tax type must be registered');
         }
 
         $taxes = [];
 
         foreach ($this->taxTypes as $taxType) {
-            /** @var TaxTypeInterface $taxType */
+            /* @var TaxTypeInterface $taxType */
             $taxes[] = $taxType->calculateTax($money, $context);
         }
 
         $maximum = array_reduce($taxes, function ($carry, $taxMoney) {
-            /** @var Money $taxMoney */
-            if ($carry === null) {
+            /* @var Money $taxMoney */
+            if (null === $carry) {
                 return $taxMoney;
             }
 

@@ -8,19 +8,22 @@ use App\TaxType\PercentTaxType;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class MaximumTaxTypeTest.
+ */
 class MaximumTaxTypeTest extends TestCase
 {
     /**
      * @expectedException \App\Exception\MissingTaxException
      */
-    public function testEmptyTaxCalculator()
+    public function testEmptyTaxCalculator(): void
     {
         $taxCalculator = new MaximumTaxType();
 
         $taxCalculator->calculateTax(Money::EUR(10000), $this->getOperationMock());
     }
 
-    public function testTaxCalculator()
+    public function testTaxCalculator(): void
     {
         $taxCalculator = new MaximumTaxType();
         $taxCalculator->add(new PercentTaxType(0.06));

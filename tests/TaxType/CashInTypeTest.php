@@ -11,6 +11,9 @@ use App\TaxType\TaxTypeInterface;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class CashInTypeTest.
+ */
 class CashInTypeTest extends TestCase
 {
     /**
@@ -19,7 +22,7 @@ class CashInTypeTest extends TestCase
      * @param OperationContext $context
      * @param bool             $expected
      */
-    public function testSupportedContext(OperationContext $context, bool $expected)
+    public function testSupportedContext(OperationContext $context, bool $expected): void
     {
         $type = new CashInType($this->getTaxTypeMock());
 
@@ -31,7 +34,7 @@ class CashInTypeTest extends TestCase
     /**
      * @expectedException \App\Exception\InvalidOperationContext
      */
-    public function testCalculationInvalidContext()
+    public function testCalculationInvalidContext(): void
     {
         $taxMock = $this->createMock(TaxTypeInterface::class);
         $taxMock->expects($this->never())
@@ -45,7 +48,7 @@ class CashInTypeTest extends TestCase
         );
     }
 
-    public function testTaxTypeCall()
+    public function testTaxTypeCall(): void
     {
         $taxMock = $this->createMock(TaxTypeInterface::class);
         $taxMock->expects($this->once())
@@ -63,7 +66,7 @@ class CashInTypeTest extends TestCase
     /**
      * @return array
      */
-    public function getContextTestParams()
+    public function getContextTestParams(): array
     {
         $params = [];
 

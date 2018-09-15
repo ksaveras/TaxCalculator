@@ -8,7 +8,7 @@ use Money\Currency;
 use Money\Money;
 
 /**
- * Class FixedAmountTaxType
+ * Class FixedAmountTaxType.
  */
 class FixedAmountTaxType implements TaxTypeInterface
 {
@@ -36,7 +36,7 @@ class FixedAmountTaxType implements TaxTypeInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function calculateTax(Money $money, OperationContext $context): Money
     {
